@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "459994332328",
+    "firebase_url": "https://test-project-88deb.firebaseio.com",
+    "project_id": "test-project-88deb",
+    "storage_bucket": "test-project-88deb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:459994332328:android:59e8ff119811654166169d",
+        "android_client_info": {
+          "package_name": "com.example.testApp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "459994332328-1bnte357eva0s8grst582fbq8hhjluig.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDPQQ0SZD5WLcUpvXCdA_KOJJ5jQkTn50"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "459994332328-1bnte357eva0s8grst582fbq8hhjluig.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "459994332328-mr00re0r6mo0okbo1697c3ji5ld323a9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.testApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

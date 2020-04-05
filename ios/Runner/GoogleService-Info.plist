@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>459994332328-mr00re0r6mo0okbo1697c3ji5ld323a9.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.459994332328-mr00re0r6mo0okbo1697c3ji5ld323a9</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCgwFX-MNHS1wiThjebU10XftCb9hOhSUY</string>
+	<key>GCM_SENDER_ID</key>
+	<string>459994332328</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.testApp</string>
+	<key>PROJECT_ID</key>
+	<string>test-project-88deb</string>
+	<key>STORAGE_BUCKET</key>
+	<string>test-project-88deb.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:459994332328:ios:5bacf3a59fb8d82466169d</string>
+	<key>DATABASE_URL</key>
+	<string>https://test-project-88deb.firebaseio.com</string>
+</dict>
+</plist>
