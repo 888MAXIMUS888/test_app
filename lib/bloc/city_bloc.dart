@@ -1,39 +1,36 @@
-import 'dart:async';
-
-import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
-import 'package:test_app/data/city_model.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:test_app/data/city_repository.dart';
-import 'package:test_app/networking.dart';
 
-part 'city_event.dart';
-part 'city_state.dart';
+class CityBloc {
+  final cityCollection = BehaviorSubject();
+  final places = BehaviorSubject();
+  final _repository = Repository();
 
-class CityBloc extends Bloc<CityEvent, CityState> {
-  final Repository repository;
-  CityBloc(this.repository);
+  List<String> cities;
 
-  List<String> asdad = ["asd", 'asd'];
-  @override
-  CityState get initialState => CityInitial(city: City(cityName: asdad));
+  Observable get outCityCollection => cityCollection.stream;
+  Observable get outPlaces => places.stream;
 
-  @override
-  Stream<CityState> mapEventToState(
-    CityEvent event,
-  ) async* {
-    yield CityLoading();
-    if(event is GetCity){
-      print("GetCity");
-      try{
-        // final cities = await repository.fetchCities();
-        final cities =Networking().getCitiesList();
-        print("cities => $cities");
-        yield CityLoaded(city: cities);
-      } on NetworkError {
-        print("Error");
-      }
-    }
+  getCityCollection() async {
+    cities = await _repository.getCityCollection();
+    cityCollection.add(cities);
+  }
+
+  getCity(String city) => _repository.getCity(city);
+
+  updateData(String documentID, String city) =>
+      _repository.updateData(documentID, city);
+
+  seachCity(String query) {
+    List<String> filter;
+    filter = cities
+        .where((value) => value.toLowerCase().contains(query.toLowerCase()))
+        .toList();
+    cityCollection.add(filter);
+  }
+
+  dispose() {
+    cityCollection.close();
+    places.close();
   }
 }
-
-class NetworkError extends Error {}

@@ -1,55 +1,77 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:test_app/bloc/city_bloc.dart';
+import 'package:test_app/detail.dart';
 
-import 'bloc/city_bloc.dart';
-import 'data/city_model.dart';
+class Cities extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => CitiesState();
+}
 
-class Cities extends StatelessWidget {
+class CitiesState extends State<Cities> {
+  final cityBloc = CityBloc();
+  TextEditingController _controller = TextEditingController();
+  @override
+  void initState() {
+    cityBloc.getCityCollection();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
       child: Column(
         children: <Widget>[
-          RaisedButton(
-            onPressed: () => context.bloc<CityBloc>().add(GetCity()),
-          ),
-          Container(child: BlocBuilder<CityBloc, CityState>(
-            builder: (context, state) {
-              return cityState(context, state);
-              // return ListView.builder(
-              //   itemBuilder: (BuildContext context, int index) {
-              //     return ListTile();
-              //   },
-              // );
+          searchWidget(),
+          StreamBuilder(
+            stream: cityBloc.outCityCollection,
+            builder: (BuildContext context, snapshot) {
+              if (!snapshot.hasData) {
+                return Center(child: CircularProgressIndicator());
+              }
+              return listItems(snapshot);
             },
-          )),
+          )
         ],
       ),
     ));
   }
 
-  cityState(BuildContext context, CityState state) {
-    if (state is CityInitial) {
-      return buildList(context, state.city);
-    } else if (state is CityLoading) {
-      return Center(
-        child: CircularProgressIndicator(),
-      );
-    } else if (state is CityLoaded) {
-      return buildList(context, state.city);
-    } else if (state is CityError) {
-      print("ERROR");
-    }
+  searchWidget() {
+    return Container(
+        width: MediaQuery.of(context).size.width / 1.2,
+        height: 40,
+        decoration: BoxDecoration(border: Border.all(width: 1)),
+        child: TextField(
+          decoration:
+              InputDecoration(icon: Icon(Icons.search, color: Colors.blue)),
+          controller: _controller,
+          onChanged: (text) {
+            cityBloc.seachCity(text);
+          },
+        ));
   }
 
-  buildList(BuildContext context, City city) {
+  listItems(snapshot) {
     return Expanded(
         child: ListView.builder(
-      itemCount: city.cityName.length,
+      itemCount: snapshot.data.length,
       itemBuilder: (BuildContext context, int index) {
         return ListTile(
-          title: Text(city.cityName[index]),
+          title: GestureDetector(
+              child: Center(
+                  child: Container(
+                      width: MediaQuery.of(context).size.width / 1.2,
+                      height: 40,
+                      decoration: BoxDecoration(border: Border.all(width: 1)),
+                      child: Center(child: Text(snapshot.data[index]))))),
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => Detail(
+                        cityBloc: cityBloc, city: snapshot.data[index])));
+          },
         );
       },
     ));

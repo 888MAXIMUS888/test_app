@@ -1,20 +1,25 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
-class City extends Equatable {
-  // final List<String> cityName;
-  final cityName;
+class City {
+  List cityName;
+  final List places;
+  final String timestamp;
+  final DocumentReference reference;
 
-  City({@required this.cityName});
+  City({@required this.cityName, this.timestamp, this.places, this.reference});
 
-  factory City.fromFirestore(DocumentSnapshot doc){
-    return City(cityName: doc.data['cities']);
-  }
+  City.fromMap(Map<String, dynamic> data) 
+      : this(cityName: new List<String>.from(data['Cities']),
+      );
 
-  @override
-  List<Object> get props => [cityName];
 
-  // @override
-  // List<Object> get props => [cityName];
+    City.fromMap2(Map<String, dynamic> map, {this.reference})
+     : assert(map['places'] != null),
+       assert(map['timestamp'] != null),
+       places = map['places'],
+       timestamp = map['timestamp'];
+
+ City.fromSnapshot(DocumentSnapshot snapshot)
+     : this.fromMap2(snapshot.data, reference: snapshot.reference);
 }
